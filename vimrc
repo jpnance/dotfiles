@@ -15,4 +15,7 @@ if has('gui_running')
  	set go=aegit
 	set guitablabel=%t%(\ %M%)
 	set guiheadroom=0
+
+	set tabstop=4
+	set shiftwidth=4
 endif
