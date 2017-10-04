@@ -18,4 +18,6 @@ if has('gui_running')
 
 	set tabstop=4
 	set shiftwidth=4
+
+	set listchars=tab:>-,trail:-
 endif
