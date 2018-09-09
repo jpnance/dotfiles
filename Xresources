@@ -1,0 +1,8 @@
+XTerm*renderFont: true
+XTerm*faceName: VeraMono
+XTerm*faceSize: 8
+XTerm*background: black
+XTerm*foreground: white
+XTerm*metaSendsEscape: true
+
+Xft.dpi: 144
