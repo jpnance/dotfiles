@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dotfiles=(vimrc vim spectrwm.conf gitconfig)
+dotfiles=(vimrc vim spectrwm.conf spectrwm gitconfig)
 
 for dotfile in ${dotfiles[*]}
 do
