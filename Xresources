@@ -6,4 +6,7 @@ XTerm*foreground: white
 XTerm*metaSendsEscape: true
 XTerm*cursorBlink: true
 
+! more ideas
+! https://lukas.zapletalovi.com/2013/07/hidden-gems-of-xterm.html
+
 Xft.dpi: 144
