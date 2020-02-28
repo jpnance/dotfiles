@@ -1,10 +1,20 @@
 syntax on
 set number
 
+let g:jellybeans_overrides = {
+\	'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+
+if has('termguicolors') && &termguicolors
+	let g:jellybeans_overrides['background']['guibg'] = 'none'
+endif
+
+set t_Co=256
+colorscheme jellybeans
+
 if has('gui_running')
 	set autochdir
 	set cursorline
-	colorscheme jellybeans
 
 	map <C-w>t :browse tabnew<CR>
 	map <C-w>e :browse e<CR>
