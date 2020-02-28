@@ -3,7 +3,7 @@
 initialize() {
 	DEFAULT_DELAY=15
 
-	SEPARATOR="  .:.   "
+	SEPARATOR="  .:.  "
 	DELAY=$([ "$1" != "" ] && echo $1 || echo $DEFAULT_DELAY)
 }
 
