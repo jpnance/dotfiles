@@ -12,6 +12,14 @@ endif
 set t_Co=256
 colorscheme jellybeans
 
+map <C-w>t :tabnew 
+map <C-w>e :e 
+map <C-w>x :%!xxd<CR>
+map <C-w>X :%!xxd -r<CR>
+
+set tabstop=4
+set shiftwidth=4
+
 if has('gui_running')
 	set autochdir
 	set cursorline
@@ -26,8 +34,10 @@ if has('gui_running')
 	set guitablabel=%t%(\ %M%)
 	set guiheadroom=0
 
-	set tabstop=4
-	set shiftwidth=4
-
-	set listchars=tab:>-,trail:-
 endif
+
+set wildmenu
+set wildmode=list:longest,full
+set mouse=a
+
+set listchars=tab:>-,trail:-
