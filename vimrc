@@ -1,3 +1,6 @@
+set autochdir
+set cursorline
+
 syntax on
 set number
 
@@ -21,9 +24,6 @@ set tabstop=4
 set shiftwidth=4
 
 if has('gui_running')
-	set autochdir
-	set cursorline
-
 	map <C-w>t :browse tabnew<CR>
 	map <C-w>e :browse e<CR>
 	map <M-Left> :tabprev<CR>
@@ -33,7 +33,6 @@ if has('gui_running')
  	set go=aegit
 	set guitablabel=%t%(\ %M%)
 	set guiheadroom=0
-
 endif
 
 set wildmenu
