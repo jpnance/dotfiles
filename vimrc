@@ -20,19 +20,19 @@ else
 	colorscheme jellybeans
 endif
 
-map <C-w>t :tabnew 
-map <C-w>e :e 
-map <C-w>x :%!xxd<CR>
-map <C-w>X :%!xxd -r<CR>
+noremap <C-w>t :tabnew 
+noremap <C-w>e :e 
+noremap <C-w>x :%!xxd<CR>
+noremap <C-w>X :%!xxd -r<CR>
 
 set tabstop=4
 set shiftwidth=4
 
 if has('gui_running')
-	map <C-w>t :browse tabnew<CR>
-	map <C-w>e :browse e<CR>
-	map <M-Left> :tabprev<CR>
-	map <M-Right> :tabnext<CR>
+	noremap <C-w>t :browse tabnew<CR>
+	noremap <C-w>e :browse e<CR>
+	noremap <M-Left> :tabprev<CR>
+	noremap <M-Right> :tabnext<CR>
 
 	set guifont=Liberation\ Mono\ 9
  	set go=aegit
