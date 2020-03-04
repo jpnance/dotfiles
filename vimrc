@@ -13,7 +13,12 @@ if has('termguicolors') && &termguicolors
 endif
 
 set t_Co=256
-colorscheme jellybeans
+
+if $VIM_ENVIRONMENT == "production"
+	colorscheme blade_runner
+else
+	colorscheme jellybeans
+endif
 
 map <C-w>t :tabnew 
 map <C-w>e :e 
