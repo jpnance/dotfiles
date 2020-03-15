@@ -24,6 +24,7 @@ noremap <C-w>t :tabnew
 noremap <C-w>e :e 
 noremap <C-w>x :%!xxd<CR>
 noremap <C-w>X :%!xxd -r<CR>
+noremap <C-w>m :!man ./%<CR>
 
 set tabstop=4
 set shiftwidth=4
