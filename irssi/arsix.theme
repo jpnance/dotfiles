@@ -64,6 +64,7 @@ abstracts = {
 
 	line_start = "";
 
+	at_me_nick = "%Y$*%n";
 	my_nick = "%C$*%n";
 	other_nick = "%c$*%n";
 
@@ -76,7 +77,8 @@ formats = {
 		part = "{channick_hilight $0} %bleft%n";
 		quit = "{channick_hilight $0} %bquit ($2)%n";
 
-		own_msg = "{my_nick $0}  $1";
-		pubmsg = "{other_nick $0}  $1";
+		own_msg = "{my_nick $[-9]0}  $1";
+		pubmsg = "{other_nick $[-9]0}  $1";
+		pubmsg_me = "{at_me_nick $[-9]0}  %y$1%n";
 	};
 };
