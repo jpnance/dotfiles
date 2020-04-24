@@ -66,7 +66,9 @@ abstracts = {
 
 	at_me_nick = "%Y$*%n";
 	my_nick = "%C$*%n";
+	my_nick_private_query = "%W$*%n";
 	other_nick = "%c$*%n";
+	other_nick_private_query = "%R$*%n";
 
 	timestamp = "%K$*%n ";
 };
@@ -78,6 +80,8 @@ formats = {
 		quit = "{channick_hilight $0} %bquit ($2)%n";
 
 		own_msg = "{my_nick $[-9]0}  $1";
+		own_msg_private_query = "{my_nick_private_query $[-9]2}  $1";
+		msg_private_query = "{other_nick_private_query $[-9]0}  $2";
 		pubmsg = "{other_nick $[-9]0}  $1";
 		pubmsg_me = "{at_me_nick $[-9]0}  %y$1%n";
 	};
