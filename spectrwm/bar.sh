@@ -8,14 +8,19 @@ initialize() {
 }
 
 batteryOutput() {
-	BATTERY_CAPACITY=`cat /sys/class/power_supply/BAT0/capacity`
-	BATTERY_STATUS=`cat /sys/class/power_supply/BAT0/status`
 
-	if [ "$BATTERY_STATUS" = "Charging" ]
+	if [ -f "/sys/class/power_supply/BAT0/status" ]
 	then
-		BATTERY_OUTPUT="$BATTERY_CAPACITY%+"
-	else
-		BATTERY_OUTPUT="$BATTERY_CAPACITY%"
+		BATTERY_CAPACITY=`cat /sys/class/power_supply/BAT0/capacity`
+		BATTERY_STATUS=`cat /sys/class/power_supply/BAT0/status`
+		BATTERY_OUTPUT=""
+
+		if [ "$BATTERY_STATUS" = "Charging" ]
+		then
+			BATTERY_OUTPUT="$BATTERY_CAPACITY%+"
+		else
+			BATTERY_OUTPUT="$BATTERY_CAPACITY%"
+		fi
 	fi
 }
 
@@ -55,8 +60,13 @@ while :; do
 
 	echo -n $LOAD_OUTPUT
 	echo -n "$SEPARATOR"
-	echo -n $BATTERY_OUTPUT
-	echo -n "$SEPARATOR"
+
+	if [ "$BATTERY_OUTPUT" != "" ]
+	then
+		echo -n $BATTERY_OUTPUT
+		echo -n "$SEPARATOR"
+	fi
+
 	echo -n $DATE_OUTPUT
 	echo -n "$SEPARATOR"
 	echo -n $TIME_OUTPUT
