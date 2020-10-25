@@ -7,8 +7,11 @@ initialize() {
 	DELAY=$([ "$1" != "" ] && echo $1 || echo $DEFAULT_DELAY)
 }
 
-batteryOutput() {
+baseballOutput() {
+	BASEBALL_OUTPUT=`curl "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1&filter%5Bsport_headline%5D=1" | jq -r '.data[0].attributes.headline'`
+}
 
+batteryOutput() {
 	if [ -f "/sys/class/power_supply/BAT0/status" ]
 	then
 		BATTERY_CAPACITY=`cat /sys/class/power_supply/BAT0/capacity`
@@ -32,6 +35,10 @@ loadOutput() {
 	LOAD_OUTPUT="$LOAD_ONE / $LOAD_FIVE / $LOAD_FIFTEEN"
 }
 
+footballOutput() {
+	FOOTBALL_OUTPUT=`curl "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21&filter%5Bsport_headline%5D=1" | jq -r '.data[0].attributes.headline'`
+}
+
 timeOutput() {
 	TIME_OUTPUT=`date +"%-l:%M%P"`
 }
@@ -53,10 +60,24 @@ dateOutput() {
 while :; do
 	initialize $@
 
+	baseballOutput
 	batteryOutput
-	loadOutput
 	dateOutput
+	footballOutput
+	loadOutput
 	timeOutput
+
+	if [ "$BASEBALL_OUTPUT" != "" ]
+	then
+		echo -n $BASEBALL_OUTPUT
+		echo -n "$SEPARATOR"
+	fi
+
+	if [ "$FOOTBALL_OUTPUT" != "" ]
+	then
+		echo -n $FOOTBALL_OUTPUT
+		echo -n "$SEPARATOR"
+	fi
 
 	echo -n $LOAD_OUTPUT
 	echo -n "$SEPARATOR"
