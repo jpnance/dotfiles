@@ -28,6 +28,8 @@ noremap <C-w>m :!man ./%<CR>
 
 set tabstop=4
 set shiftwidth=4
+set autoindent
+set smartindent
 
 if has('gui_running')
 	noremap <C-w>t :browse tabnew<CR>
