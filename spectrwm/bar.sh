@@ -8,7 +8,7 @@ initialize() {
 }
 
 baseballOutput() {
-	BASEBALL_OUTPUT=`curl "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
+	BASEBALL_OUTPUT=`curl --silent "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
 }
 
 batteryOutput() {
@@ -36,7 +36,7 @@ loadOutput() {
 }
 
 footballOutput() {
-	FOOTBALL_OUTPUT=`curl "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
+	FOOTBALL_OUTPUT=`curl --silent "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
 }
 
 timeOutput() {
