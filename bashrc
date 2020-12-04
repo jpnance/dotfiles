@@ -71,67 +71,87 @@ function printBar() {
   #COOL_CHARS=(▘ ▝ ▀ ▖ ▍ ▞ ▛ ▗ ▚ ▐ ▜ ▃ ▙ ▟ ▉)
 
   COLOR0=0
-  COLOR1=33
-  COLOR2=99
+  COLOR_DIRECTORY=33
+  COLOR_GIT=99
   COLOR_BAD=196
   COLOR_GOOD=34
   TEXT_COLOR=15
-  TEXT_COLOR1=195
-  TEXT_COLOR2=225
+  TEXT_COLOR_DIRECTORY=195
+  TEXT_COLOR_GIT=225
   TEXT_COLOR_BAD=224
   TEXT_COLOR_GOOD=194
   SEPARATOR_COLOR=255
-  SEPARATOR_COLOR1=255
-  SEPARATOR_COLOR2=255
+  SEPARATOR_COLOR_DIRECTORY=255
+  SEPARATOR_COLOR_GIT=255
   SEPARATOR_COLOR_BAD=255
   SEPARATOR_COLOR_GOOD=255
 
   COLOR0=0
-  COLOR1=236
-  COLOR2=238
-  COLOR_BAD=124
+  COLOR_HOST=234
+  COLOR_DIRECTORY=236
+  COLOR_GIT=238
+  COLOR_BAD=88
   COLOR_GOOD=240
   TEXT_COLOR=15
-  TEXT_COLOR1=69
-  TEXT_COLOR2=176
-  TEXT_COLOR_BAD=224
-  TEXT_COLOR_GOOD=114
+  TEXT_COLOR_HOST=64
+  TEXT_COLOR_DIRECTORY=69
+  TEXT_COLOR_GIT=176
+  TEXT_COLOR_BAD=218
+  TEXT_COLOR_GOOD=255
   SEPARATOR_COLOR=232
-  SEPARATOR_COLOR1=-1
-  SEPARATOR_COLOR2=$((COLOR2 + 1))
-  SEPARATOR_COLOR_BAD=$((COLOR_BAD + 1))
+  SEPARATOR_COLOR_HOST=-1
+  SEPARATOR_COLOR_DIRECTORY=$((COLOR_DIRECTORY + 1))
+  SEPARATOR_COLOR_GIT=$((COLOR_GIT + 1))
+  SEPARATOR_COLOR_BAD=124
   SEPARATOR_COLOR_GOOD=$((COLOR_GOOD + 1))
 
   COLOR0=0
-  COLOR1=17
-  COLOR2=53
+  COLOR_HOST=58
+  COLOR_HOST=22
+  COLOR_DIRECTORY=18
+  COLOR_GIT=53
   COLOR_BAD=124
-  COLOR_GOOD=22
+  COLOR_GOOD=236
   TEXT_COLOR=15
-  TEXT_COLOR1=33
-  TEXT_COLOR2=176
+  TEXT_COLOR_HOST=142
+  TEXT_COLOR_HOST=70
+  TEXT_COLOR_DIRECTORY=69
+  TEXT_COLOR_GIT=176
   TEXT_COLOR_BAD=224
-  TEXT_COLOR_GOOD=114
+  TEXT_COLOR_GOOD=250
   SEPARATOR_COLOR=-1
-  SEPARATOR_COLOR1=-1
-  SEPARATOR_COLOR2=-1
+  SEPARATOR_COLOR_HOST=-1
+  SEPARATOR_COLOR_DIRECTORY=-1
+  SEPARATOR_COLOR_GIT=-1
   SEPARATOR_COLOR_BAD=-1
   SEPARATOR_COLOR_GOOD=-1
 
-  LATEST_COLOR=$COLOR1
+  LATEST_COLOR=$COLOR_DIRECTORY
+  HOST=$(hostname -s)
 
-  BAR="${CLEAR_LINE}"
-  #BAR+="$(terminalColor $SEPARATOR_COLOR $COLOR1)▌"
-  BAR+="$(separator -1 $SEPARATOR_COLOR1 $COLOR1)"
-  BAR+="$(terminalColor $TEXT_COLOR1 $COLOR1)$BOLD$(workingDirectory)"
+  BAR=""
+
+  BAR+="\[\e[$LINES;1H\]"
+  BAR+="\n"
+  BAR+="${CLEAR_LINE}"
+
+  if [[ "$HOST" == "sherpa" || "$HOST" == "coinflipper" ]]; then
+    BAR+="$(separator -1 $SEPARATOR_COLOR_HOST $COLOR_HOST)"
+    BAR+="$(terminalColor $TEXT_COLOR_HOST $COLOR_HOST)$BOLD$HOST"
+    BAR+="$(separator $COLOR_HOST $SEPARATOR_COLOR_DIRECTORY $COLOR_DIRECTORY)"
+  else
+    BAR+="$(separator -1 $SEPARATOR_COLOR_DIRECTORY $COLOR_DIRECTORY)"
+  fi
+
+  BAR+="$(terminalColor $TEXT_COLOR_DIRECTORY $COLOR_DIRECTORY)$BOLD$(workingDirectory)"
 
   GIT=$(parse_git_branch)
 
   if [[ -n "$GIT" ]]; then
-    LATEST_COLOR=$COLOR2
+    LATEST_COLOR=$COLOR_GIT
 
-    BAR+="$(separator $COLOR1 $SEPARATOR_COLOR2 $COLOR2)"
-    BAR+="$(terminalColor $TEXT_COLOR2 $COLOR2)$GIT"
+    BAR+="$(separator $COLOR_DIRECTORY $SEPARATOR_COLOR_GIT $COLOR_GIT)"
+    BAR+="$(terminalColor $TEXT_COLOR_GIT $COLOR_GIT)$GIT"
   fi
 
   BAR+="${RESET_COLORS}"
@@ -157,14 +177,15 @@ function printBar() {
 
 function printPrompt() {
   #COOL_CHARS=(▘ ▝ ▀ ▖ ▍ ▞ ▛ ▗ ▚ ▐ ▜ ▃ ▙ ▟ ▉)
+  SEPARATOR="◿◸"
   PROMPT=""
 
-  PROMPT+="$(terminalColor 32 0)$BOLD$(workingDirectory)$RESET_COLORS"
+  PROMPT+="$(terminalColor 32)$BOLD$(workingDirectory)$RESET_COLORS"
 
   GIT=$(parse_git_branch)
 
   if [[ -n "$GIT" ]]; then
-    PROMPT+=" $(terminalColor 250 0)◿◸$RESET_COLORS $(terminalColor 40 0)${BOLD}$GIT$RESET_COLORS"
+    PROMPT+="$(terminalColor 245) $SEPARATOR $(terminalColor 40)${BOLD}$GIT$RESET_COLORS"
   fi
 
   #PROMPT+="$BOLD$(terminalColor 0 32) $(workingDirectory) $(terminalColor 32 40)▆$(terminalColor 40 32)▀$RESET_COLORS$(terminalColor 32 40)▂$(terminalColor 40 0)█$(terminalColor 0 40)master $RESET_COLORS"
@@ -235,6 +256,7 @@ function set_bash_prompt() {
   #PS1="\w \$ \$(parse_git_branch"
   #PS1="\w $(parse_git_branch)\\$ $(printTitlebar)"
   #PS1="$(printTitlebar)$(parse_git_branch)\\$ "
+
   PS1="$(printBar $?)$RESET_COLORS"
   #PS1="$(printPrompt $?)$BOLD\$$RESET_COLORS "
 }
