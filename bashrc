@@ -235,12 +235,16 @@ function workingDirectory() {
         OUTPUT+="/"
       fi
 
-      if [[ $i -gt 0 ]]; then
+      if (( $i > 0 )); then
         OUTPUT+="/"
       fi
 
-      if [[ $i -lt $((${#HIERARCHY[@]} - 1)) ]]; then
-        OUTPUT+="${HIERARCHY[$i]:0:1}"
+      if (( $i < $((${#HIERARCHY[@]} - 1)) )); then
+        if [[ ${HIERARCHY[$i]:0:1} =~ [^A-Za-z0-9] ]]; then
+          OUTPUT+="${HIERARCHY[$i]:0:2}"
+        else
+          OUTPUT+="${HIERARCHY[$i]:0:1}"
+        fi
       else
         OUTPUT+="${HIERARCHY[$i]}"
       fi
@@ -253,6 +257,8 @@ function workingDirectory() {
 }
 
 function set_bash_prompt() {
+  PS0="\n"
+
   #PS1="\w \$ \$(parse_git_branch"
   #PS1="\w $(parse_git_branch)\\$ $(printTitlebar)"
   #PS1="$(printTitlebar)$(parse_git_branch)\\$ "
