@@ -66,68 +66,58 @@ function printTitlebar() {
 }
 
 function printBar() {
-  #GOOD_COLORS=(1 2 3 4 5 6 7)
-  #echo -e "${CLEAR_LINE}$(terminalColor 245 ${GOOD_COLORS[$(($RANDOM % ${#GOOD_COLORS[@]}))]})\\w $(parse_git_branch)${CLEAR_LINE}${RESET_COLORS}"
-  #COOL_CHARS=(▘ ▝ ▀ ▖ ▍ ▞ ▛ ▗ ▚ ▐ ▜ ▃ ▙ ▟ ▉)
+  PREVIOUS_EXIT_CODE=$1
+  HOST=$(hostname -s)
+  GIT=$(parse_git_branch)
 
-  COLOR0=0
   COLOR_DIRECTORY=33
   COLOR_GIT=99
   COLOR_BAD=196
   COLOR_GOOD=34
-  TEXT_COLOR=15
   TEXT_COLOR_DIRECTORY=195
   TEXT_COLOR_GIT=225
   TEXT_COLOR_BAD=224
   TEXT_COLOR_GOOD=194
-  SEPARATOR_COLOR=255
   SEPARATOR_COLOR_DIRECTORY=255
   SEPARATOR_COLOR_GIT=255
   SEPARATOR_COLOR_BAD=255
   SEPARATOR_COLOR_GOOD=255
 
-  COLOR0=0
   COLOR_HOST=234
   COLOR_DIRECTORY=236
   COLOR_GIT=238
   COLOR_BAD=88
   COLOR_GOOD=240
-  TEXT_COLOR=15
   TEXT_COLOR_HOST=64
   TEXT_COLOR_DIRECTORY=69
   TEXT_COLOR_GIT=176
   TEXT_COLOR_BAD=218
   TEXT_COLOR_GOOD=255
-  SEPARATOR_COLOR=232
   SEPARATOR_COLOR_HOST=-1
   SEPARATOR_COLOR_DIRECTORY=$((COLOR_DIRECTORY + 1))
   SEPARATOR_COLOR_GIT=$((COLOR_GIT + 1))
   SEPARATOR_COLOR_BAD=124
   SEPARATOR_COLOR_GOOD=$((COLOR_GOOD + 1))
 
-  COLOR0=0
   COLOR_HOST=58
   COLOR_HOST=22
   COLOR_DIRECTORY=18
   COLOR_GIT=53
   COLOR_BAD=124
   COLOR_GOOD=236
-  TEXT_COLOR=15
   TEXT_COLOR_HOST=142
   TEXT_COLOR_HOST=70
   TEXT_COLOR_DIRECTORY=69
   TEXT_COLOR_GIT=176
   TEXT_COLOR_BAD=224
   TEXT_COLOR_GOOD=250
-  SEPARATOR_COLOR=-1
   SEPARATOR_COLOR_HOST=-1
   SEPARATOR_COLOR_DIRECTORY=-1
   SEPARATOR_COLOR_GIT=-1
   SEPARATOR_COLOR_BAD=-1
   SEPARATOR_COLOR_GOOD=-1
 
-  LATEST_COLOR=$COLOR_DIRECTORY
-  HOST=$(hostname -s)
+  LATEST_COLOR=$COLOR_HOST
 
   BAR=""
 
@@ -140,12 +130,10 @@ function printBar() {
     BAR+="$(terminalColor $TEXT_COLOR_HOST $COLOR_HOST)$BOLD$HOST"
     BAR+="$(separator $COLOR_HOST $SEPARATOR_COLOR_DIRECTORY $COLOR_DIRECTORY)"
   else
-    BAR+="$(separator -1 $SEPARATOR_COLOR_DIRECTORY $COLOR_DIRECTORY)"
+    BAR+="$(separator -1 -1 $COLOR_DIRECTORY)"
   fi
 
   BAR+="$(terminalColor $TEXT_COLOR_DIRECTORY $COLOR_DIRECTORY)$BOLD$(workingDirectory)"
-
-  GIT=$(parse_git_branch)
 
   if [[ -n "$GIT" ]]; then
     LATEST_COLOR=$COLOR_GIT
@@ -156,7 +144,7 @@ function printBar() {
 
   BAR+="${RESET_COLORS}"
 
-  if [[ $1 != 0 ]]; then
+  if (( $PREVIOUS_EXIT_CODE != 0 )); then
     BAR+="$(separator $LATEST_COLOR $SEPARATOR_COLOR_BAD $COLOR_BAD)"
     BAR+="$(terminalColor $TEXT_COLOR_BAD $COLOR_BAD)"
 
@@ -171,7 +159,7 @@ function printBar() {
   BAR+="\$"
 
   #BAR+="$(terminalColor $SEPARATOR_COLOR $LATEST_COLOR)▐"
-  BAR+="$(separator $LATEST_COLOR $SEPARATOR_COLOR -1) "
+  BAR+="$(separator $LATEST_COLOR -1 -1) "
   echo -e "$BAR"
 }
 
@@ -257,14 +245,14 @@ function workingDirectory() {
 }
 
 function set_bash_prompt() {
-  PS0="\n"
-
   #PS1="\w \$ \$(parse_git_branch"
   #PS1="\w $(parse_git_branch)\\$ $(printTitlebar)"
   #PS1="$(printTitlebar)$(parse_git_branch)\\$ "
 
   PS1="$(printBar $?)$RESET_COLORS"
   #PS1="$(printPrompt $?)$BOLD\$$RESET_COLORS "
+
+  PS0="\n"
 }
 
 PROMPT_COMMAND=set_bash_prompt
