@@ -133,6 +133,8 @@ function printBar() {
     BAR+="$(separator -1 -1 $COLOR_DIRECTORY)"
   fi
 
+  LATEST_COLOR=$COLOR_DIRECTORY
+
   BAR+="$(terminalColor $TEXT_COLOR_DIRECTORY $COLOR_DIRECTORY)$BOLD$(workingDirectory)"
 
   if [[ -n "$GIT" ]]; then
