@@ -156,7 +156,7 @@ function printBar() {
     LATEST_COLOR=$COLOR_GOOD
   fi
 
-  BAR+="\$"
+  BAR+="\\$"
 
   #BAR+="$(terminalColor $SEPARATOR_COLOR $LATEST_COLOR)▐"
   BAR+="$(separator $LATEST_COLOR -1 -1) "
