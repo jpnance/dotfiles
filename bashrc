@@ -121,7 +121,7 @@ function printBar() {
 
   BAR=""
 
-  BAR+="\[\e[$LINES;1H\]"
+  #BAR+="\[\e[$LINES;1H\]"
   BAR+="\n"
   BAR+="${CLEAR_LINE}"
 
