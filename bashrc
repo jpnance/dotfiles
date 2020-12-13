@@ -13,17 +13,17 @@ RESET_COLORS="\001\e[0m\002"
 # get current branch in git repo
 function parse_git_branch() {
 	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-  OUTPUT=""
+	OUTPUT=""
 
 	if [ ! "${BRANCH}" == "" ]
 	then
 		STAT=`parse_git_dirty`
 		OUTPUT="${BRANCH}${STAT}"
-  else
-    OUTPUT=""
+	else
+		OUTPUT=""
 	fi
 
-  echo "$OUTPUT"
+	echo "$OUTPUT"
 }
 
 # get current status of git repo
@@ -62,202 +62,203 @@ function parse_git_dirty {
 }
 
 function printTitlebar() {
-  echo -e "${SAVE_CURSOR}${CURSOR_TO_TOP}${CLEAR_LINE}${BLACK_FOREGROUND}${WHITE_BACKGROUND}\\w${CLEAR_LINE}${RESET_COLORS}${RESTORE_CURSOR}${CURSOR_UP_DOWN}"
+	echo -e "${SAVE_CURSOR}${CURSOR_TO_TOP}${CLEAR_LINE}${BLACK_FOREGROUND}${WHITE_BACKGROUND}\\w${CLEAR_LINE}${RESET_COLORS}${RESTORE_CURSOR}${CURSOR_UP_DOWN}"
 }
 
 function printBar() {
-  PREVIOUS_EXIT_CODE=$1
-  HOST=$(hostname -s)
-  GIT=$(parse_git_branch)
+	PREVIOUS_EXIT_CODE=$1
+	HOST=$(hostname -s)
+	GIT=$(parse_git_branch)
 
-  COLOR_DIRECTORY=33
-  COLOR_GIT=99
-  COLOR_BAD=196
-  COLOR_GOOD=34
-  TEXT_COLOR_DIRECTORY=195
-  TEXT_COLOR_GIT=225
-  TEXT_COLOR_BAD=224
-  TEXT_COLOR_GOOD=194
-  SEPARATOR_COLOR_DIRECTORY=255
-  SEPARATOR_COLOR_GIT=255
-  SEPARATOR_COLOR_BAD=255
-  SEPARATOR_COLOR_GOOD=255
+	COLOR_DIRECTORY=33
+	COLOR_GIT=99
+	COLOR_BAD=196
+	COLOR_GOOD=34
+	TEXT_COLOR_DIRECTORY=195
+	TEXT_COLOR_GIT=225
+	TEXT_COLOR_BAD=224
+	TEXT_COLOR_GOOD=194
+	SEPARATOR_COLOR_DIRECTORY=255
+	SEPARATOR_COLOR_GIT=255
+	SEPARATOR_COLOR_BAD=255
+	SEPARATOR_COLOR_GOOD=255
 
-  COLOR_HOST=234
-  COLOR_DIRECTORY=236
-  COLOR_GIT=238
-  COLOR_BAD=88
-  COLOR_GOOD=240
-  TEXT_COLOR_HOST=64
-  TEXT_COLOR_DIRECTORY=69
-  TEXT_COLOR_GIT=176
-  TEXT_COLOR_BAD=218
-  TEXT_COLOR_GOOD=255
-  SEPARATOR_COLOR_HOST=-1
-  SEPARATOR_COLOR_DIRECTORY=$((COLOR_DIRECTORY + 1))
-  SEPARATOR_COLOR_GIT=$((COLOR_GIT + 1))
-  SEPARATOR_COLOR_BAD=124
-  SEPARATOR_COLOR_GOOD=$((COLOR_GOOD + 1))
+	COLOR_HOST=234
+	COLOR_DIRECTORY=236
+	COLOR_GIT=238
+	COLOR_BAD=88
+	COLOR_GOOD=240
+	TEXT_COLOR_HOST=64
+	TEXT_COLOR_DIRECTORY=69
+	TEXT_COLOR_GIT=176
+	TEXT_COLOR_BAD=218
+	TEXT_COLOR_GOOD=255
+	SEPARATOR_COLOR_HOST=-1
+	SEPARATOR_COLOR_DIRECTORY=$((COLOR_DIRECTORY + 1))
+	SEPARATOR_COLOR_GIT=$((COLOR_GIT + 1))
+	SEPARATOR_COLOR_BAD=124
+	SEPARATOR_COLOR_GOOD=$((COLOR_GOOD + 1))
 
-  COLOR_HOST=58
-  COLOR_HOST=22
-  COLOR_DIRECTORY=18
-  COLOR_GIT=53
-  COLOR_BAD=124
-  COLOR_GOOD=236
-  TEXT_COLOR_HOST=142
-  TEXT_COLOR_HOST=70
-  TEXT_COLOR_DIRECTORY=69
-  TEXT_COLOR_GIT=176
-  TEXT_COLOR_BAD=224
-  TEXT_COLOR_GOOD=250
-  SEPARATOR_COLOR_HOST=-1
-  SEPARATOR_COLOR_DIRECTORY=-1
-  SEPARATOR_COLOR_GIT=-1
-  SEPARATOR_COLOR_BAD=-1
-  SEPARATOR_COLOR_GOOD=-1
+	COLOR_HOST=58
+	COLOR_HOST=22
+	COLOR_DIRECTORY=18
+	COLOR_GIT=53
+	COLOR_BAD=124
+	COLOR_GOOD=236
+	TEXT_COLOR_HOST=142
+	TEXT_COLOR_HOST=70
+	TEXT_COLOR_DIRECTORY=69
+	TEXT_COLOR_GIT=176
+	TEXT_COLOR_BAD=224
+	TEXT_COLOR_GOOD=250
+	SEPARATOR_COLOR_HOST=-1
+	SEPARATOR_COLOR_DIRECTORY=-1
+	SEPARATOR_COLOR_GIT=-1
+	SEPARATOR_COLOR_BAD=-1
+	SEPARATOR_COLOR_GOOD=-1
 
-  LATEST_COLOR=$COLOR_HOST
+	LATEST_COLOR=$COLOR_HOST
 
-  BAR=""
+	BAR=""
 
-  #BAR+="\001\e[$LINES;1H\002"
-  BAR+="\n"
-  BAR+="${CLEAR_LINE}"
+	#BAR+="\001\e[$LINES;1H\002"
+	BAR+="\n"
+	BAR+="${CLEAR_LINE}"
 
-  if [[ "$HOST" == "sherpa" || "$HOST" == "coinflipper" ]]; then
-    BAR+="$(separator -1 $SEPARATOR_COLOR_HOST $COLOR_HOST)"
-    BAR+="$(terminalColor $TEXT_COLOR_HOST $COLOR_HOST)$BOLD$HOST"
-    BAR+="$(separator $COLOR_HOST $SEPARATOR_COLOR_DIRECTORY $COLOR_DIRECTORY)"
-  else
-    BAR+="$(separator -1 -1 $COLOR_DIRECTORY)"
-  fi
+	if [[ "$HOST" == "sherpa" || "$HOST" == "coinflipper" ]]; then
+		BAR+="$(separator -1 $SEPARATOR_COLOR_HOST $COLOR_HOST)"
+		BAR+="$(terminalColor $TEXT_COLOR_HOST $COLOR_HOST)$BOLD$HOST"
+		BAR+="$(separator $COLOR_HOST $SEPARATOR_COLOR_DIRECTORY $COLOR_DIRECTORY)"
+	else
+		BAR+="$(separator -1 -1 $COLOR_DIRECTORY)"
+	fi
 
-  LATEST_COLOR=$COLOR_DIRECTORY
+	LATEST_COLOR=$COLOR_DIRECTORY
 
-  BAR+="$(terminalColor $TEXT_COLOR_DIRECTORY $COLOR_DIRECTORY)$BOLD$(workingDirectory)"
+	BAR+="$(terminalColor $TEXT_COLOR_DIRECTORY $COLOR_DIRECTORY)$BOLD$(workingDirectory)"
 
-  if [[ -n "$GIT" ]]; then
-    LATEST_COLOR=$COLOR_GIT
+	if [[ -n "$GIT" ]]; then
+		LATEST_COLOR=$COLOR_GIT
 
-    BAR+="$(separator $COLOR_DIRECTORY $SEPARATOR_COLOR_GIT $COLOR_GIT)"
-    BAR+="$(terminalColor $TEXT_COLOR_GIT $COLOR_GIT)$GIT"
-  fi
+		BAR+="$(separator $COLOR_DIRECTORY $SEPARATOR_COLOR_GIT $COLOR_GIT)"
+		BAR+="$(terminalColor $TEXT_COLOR_GIT $COLOR_GIT)$GIT"
+	fi
 
-  BAR+="${RESET_COLORS}"
+	BAR+="${RESET_COLORS}"
 
-  if (( $PREVIOUS_EXIT_CODE != 0 )); then
-    BAR+="$(separator $LATEST_COLOR $SEPARATOR_COLOR_BAD $COLOR_BAD)"
-    BAR+="$(terminalColor $TEXT_COLOR_BAD $COLOR_BAD)"
+	if (( $PREVIOUS_EXIT_CODE != 0 )); then
+		BAR+="$(separator $LATEST_COLOR $SEPARATOR_COLOR_BAD $COLOR_BAD)"
+		BAR+="$(terminalColor $TEXT_COLOR_BAD $COLOR_BAD)"
 
-    LATEST_COLOR=$COLOR_BAD
-  else
-    BAR+="$(separator $LATEST_COLOR $SEPARATOR_COLOR_GOOD $COLOR_GOOD)"
-    BAR+="$(terminalColor $TEXT_COLOR_GOOD $COLOR_GOOD)"
+		LATEST_COLOR=$COLOR_BAD
+	else
+		BAR+="$(separator $LATEST_COLOR $SEPARATOR_COLOR_GOOD $COLOR_GOOD)"
+		BAR+="$(terminalColor $TEXT_COLOR_GOOD $COLOR_GOOD)"
 
-    LATEST_COLOR=$COLOR_GOOD
-  fi
+		LATEST_COLOR=$COLOR_GOOD
+	fi
 
-  BAR+="\\$"
+	BAR+="\\$"
 
-  #BAR+="$(terminalColor $SEPARATOR_COLOR $LATEST_COLOR)▐"
-  BAR+="$(separator $LATEST_COLOR -1 -1) "
-  echo -e "$BAR"
+	#BAR+="$(terminalColor $SEPARATOR_COLOR $LATEST_COLOR)▐"
+	BAR+="$(separator $LATEST_COLOR -1 -1) "
+	echo -e "$BAR"
 }
 
 function printPrompt() {
-  #COOL_CHARS=(▘ ▝ ▀ ▖ ▍ ▞ ▛ ▗ ▚ ▐ ▜ ▃ ▙ ▟ ▉)
-  SEPARATOR="◿◸"
-  PROMPT=""
+	#COOL_CHARS=(▘ ▝ ▀ ▖ ▍ ▞ ▛ ▗ ▚ ▐ ▜ ▃ ▙ ▟ ▉)
+	SEPARATOR="◿◸"
+	PROMPT=""
 
-  PROMPT+="$(terminalColor 32)$BOLD$(workingDirectory)$RESET_COLORS"
+	PROMPT+="$(terminalColor 32)$BOLD$(workingDirectory)$RESET_COLORS"
 
-  GIT=$(parse_git_branch)
+	GIT=$(parse_git_branch)
 
-  if [[ -n "$GIT" ]]; then
-    PROMPT+="$(terminalColor 245) $SEPARATOR $(terminalColor 40)${BOLD}$GIT$RESET_COLORS"
-  fi
+	if [[ -n "$GIT" ]]; then
+		PROMPT+="$(terminalColor 245) $SEPARATOR $(terminalColor 40)${BOLD}$GIT$RESET_COLORS"
+	fi
 
-  #PROMPT+="$BOLD$(terminalColor 0 32) $(workingDirectory) $(terminalColor 32 40)▆$(terminalColor 40 32)▀$RESET_COLORS$(terminalColor 32 40)▂$(terminalColor 40 0)█$(terminalColor 0 40)master $RESET_COLORS"
-  #➔ ${BOLD}mas${NORMAL}ter"
+	#PROMPT+="$BOLD$(terminalColor 0 32) $(workingDirectory) $(terminalColor 32 40)▆$(terminalColor 40 32)▀$RESET_COLORS$(terminalColor 32 40)▂$(terminalColor 40 0)█$(terminalColor 0 40)master $RESET_COLORS"
+	#➔ ${BOLD}mas${NORMAL}ter"
 
-  echo -e "$PROMPT "
+	echo -e "$PROMPT "
 }
 
 function separator() {
-  if [[ "$1" -ne "-1" ]]; then
-    OUTPUT+="$(terminalColor $1 $2)█▛"
-  fi
+	SEPARATOR_LEFT="█▛"
+	SEPARATOR_RIGHT="▟█"
 
-  if [[ "$3" -ne "-1" ]]; then
-    OUTPUT+="$(terminalColor $3 $2)▟█"
-  fi
+	if [[ "$1" -ne "-1" ]]; then
+		OUTPUT+="$(terminalColor $1 $2)$SEPARATOR_LEFT"
+	fi
 
-  echo $OUTPUT
+	if [[ "$3" -ne "-1" ]]; then
+		OUTPUT+="$(terminalColor $3 $2)$SEPARATOR_RIGHT"
+	fi
+
+	echo $OUTPUT
 }
 
 function terminalColor() {
-  FOREGROUND="\001\e[38;5;${1}m\002"
-  BACKGROUND="\001\e[48;5;${2}m\002"
+	FOREGROUND="\001\e[38;5;${1}m\002"
+	BACKGROUND="\001\e[48;5;${2}m\002"
 
-  if [[ -z "${1}" ]]; then
-    FOREGROUND="\001\e[38;5;15m\002"
-  fi
+	if [[ -z "${1}" ]]; then
+		FOREGROUND="\001\e[38;5;15m\002"
+	fi
 
-  if [[ -z "${2}" || "${2}" -eq "-1" ]]; then
-    BACKGROUND=""
-  fi
+	if [[ -z "${2}" || "${2}" -eq "-1" ]]; then
+		BACKGROUND=""
+	fi
 
-  echo ${RESET_COLORS}${FOREGROUND}${BACKGROUND}
+	echo ${RESET_COLORS}${FOREGROUND}${BACKGROUND}
 }
 
 function workingDirectory() {
-  HIERARCHY=($(echo $PWD \
-    | sed -e "s|^$HOME|~|" \
-    | sed -e "s| |!SPACE!|g" \
-    | sed -e "s|/| |g"
-  ))
+	HIERARCHY=($(echo $PWD \
+		| sed -e "s|^$HOME|~|" \
+		| sed -e "s| |!SPACE!|g" \
+		| sed -e "s|/| |g"
+	))
 
-  OUTPUT=""
+	OUTPUT=""
 
-  if (( ${#HIERARCHY[@]} > 0 )); then
-    for i in $(seq 0 $((${#HIERARCHY[@]} - 1))); do
-      if [[ $i -eq 0 && "${HIERARCHY[$i]}" != "~" ]]; then
-        OUTPUT+="/"
-      fi
+	if (( ${#HIERARCHY[@]} > 0 )); then
+		for i in $(seq 0 $((${#HIERARCHY[@]} - 1))); do
+			if [[ $i -eq 0 && "${HIERARCHY[$i]}" != "~" ]]; then
+				OUTPUT+="/"
+			fi
 
-      if (( $i > 0 )); then
-        OUTPUT+="/"
-      fi
+			if (( $i > 0 )); then
+				OUTPUT+="/"
+			fi
 
-      if (( $i < $((${#HIERARCHY[@]} - 1)) )); then
-        if [[ ${HIERARCHY[$i]:0:1} =~ [^A-Za-z0-9] ]]; then
-          OUTPUT+="${HIERARCHY[$i]:0:2}"
-        else
-          OUTPUT+="${HIERARCHY[$i]:0:1}"
-        fi
-      else
-        OUTPUT+="${HIERARCHY[$i]/!SPACE!/ }"
-      fi
-    done
-  else
-    OUTPUT+="/"
-  fi
+			if (( $i < $((${#HIERARCHY[@]} - 1)) )); then
+				if [[ ${HIERARCHY[$i]:0:1} =~ [^A-Za-z0-9] ]]; then
+					OUTPUT+="${HIERARCHY[$i]:0:2}"
+				else
+					OUTPUT+="${HIERARCHY[$i]:0:1}"
+				fi
+			else
+				OUTPUT+="${HIERARCHY[$i]/!SPACE!/ }"
+			fi
+		done
+	else
+		OUTPUT+="/"
+	fi
 
-  echo -e "$OUTPUT"
+	echo -e "$OUTPUT"
 }
 
 function set_bash_prompt() {
-  #PS1="\w \$ \$(parse_git_branch"
-  #PS1="\w $(parse_git_branch)\\$ $(printTitlebar)"
-  #PS1="$(printTitlebar)$(parse_git_branch)\\$ "
+	#PS1="\w \$ \$(parse_git_branch"
+	#PS1="\w $(parse_git_branch)\\$ $(printTitlebar)"
+	#PS1="$(printTitlebar)$(parse_git_branch)\\$ "
 
-  PS1="$(printBar $?)$RESET_COLORS"
-  #PS1="$(printPrompt $?)$BOLD\$$RESET_COLORS "
+	PS1="$(printBar $?)$RESET_COLORS"
+	#PS1="$(printPrompt $?)$BOLD\$$RESET_COLORS "
 
-  PS0="\n"
+	PS0="\n"
 }
 
 PROMPT_COMMAND=set_bash_prompt
-
-export DEV_DOMAIN=pnancedev.14four.com
