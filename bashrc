@@ -214,6 +214,7 @@ function terminalColor() {
 function workingDirectory() {
   HIERARCHY=($(echo $PWD \
     | sed -e "s|^$HOME|~|" \
+    | sed -e "s| |!SPACE!|g" \
     | sed -e "s|/| |g"
   ))
 
@@ -236,7 +237,7 @@ function workingDirectory() {
           OUTPUT+="${HIERARCHY[$i]:0:1}"
         fi
       else
-        OUTPUT+="${HIERARCHY[$i]}"
+        OUTPUT+="${HIERARCHY[$i]/!SPACE!/ }"
       fi
     done
   else
