@@ -11,6 +11,10 @@ baseballOutput() {
 	BASEBALL_OUTPUT=`curl --silent "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
 }
 
+basketballOutput() {
+	BASKETBALL_OUTPUT=`curl --silent "https://www.rotoworld.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=11" | jq -r '.data[0].attributes.headline'`
+}
+
 batteryOutput() {
 	if [ -f "/sys/class/power_supply/BAT0/status" ]
 	then
@@ -61,6 +65,7 @@ while :; do
 	initialize $@
 
 	baseballOutput
+	basketballOutput
 	batteryOutput
 	dateOutput
 	footballOutput
@@ -70,6 +75,12 @@ while :; do
 	if [ "$BASEBALL_OUTPUT" != "" ]
 	then
 		echo -n $BASEBALL_OUTPUT
+		echo -n "$SEPARATOR"
+	fi
+
+	if [ "$BASKETBALL_OUTPUT" != "" ]
+	then
+		echo -n $BASKETBALL_OUTPUT
 		echo -n "$SEPARATOR"
 	fi
 
