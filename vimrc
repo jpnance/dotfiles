@@ -20,6 +20,7 @@ else
 	colorscheme jellybeans
 endif
 
+noremap <C-w>b :ls<CR>:buffer 
 noremap <C-w>t :tabnew 
 noremap <C-w>e :e 
 noremap <C-w>x :%!xxd<CR>
