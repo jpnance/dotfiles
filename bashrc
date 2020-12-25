@@ -1,14 +1,14 @@
-SAVE_CURSOR="\001\e[s\002"
-CURSOR_TO_TOP="\001\e[H\002"
-CURSOR_UP_DOWN="\001\e[1A\e[1B\002"
-CLEAR_LINE="\001\e[K\002"
-RESTORE_CURSOR="\001\e[u\002"
+SAVE_CURSOR="\[\e[s\]"
+CURSOR_TO_TOP="\[\e[H\]"
+CURSOR_UP_DOWN="\[\e[1A\e[1B\]"
+CLEAR_LINE="\[\e[K\]"
+RESTORE_CURSOR="\[\e[u\]"
 
-BOLD="\001\e[1m\002"
-NORMAL="\001\e[22m\002"
-BLACK_FOREGROUND="\001\e[30m\002"
-WHITE_BACKGROUND="\001\e[47m\002"
-RESET_COLORS="\001\e[0m\002"
+BOLD="\[\e[1m\]"
+NORMAL="\[\e[22m\]"
+BLACK_FOREGROUND="\[\e[30m\]"
+WHITE_BACKGROUND="\[\e[47m\]"
+RESET_COLORS="\[\e[0m\]"
 
 # get current branch in git repo
 function parse_git_branch() {
@@ -121,9 +121,8 @@ function printBar() {
 
 	BAR=""
 
-	#BAR+="\001\e[$LINES;1H\002"
+	#BAR+="\[\e[$LINES;1H\]"
 	BAR+="\n"
-	BAR+="${CLEAR_LINE}"
 
 	if [[ "$HOST" == "sherpa" || "$HOST" == "coinflipper" ]]; then
 		BAR+="$(separator -1 $SEPARATOR_COLOR_HOST $COLOR_HOST)"
@@ -200,11 +199,11 @@ function separator() {
 }
 
 function terminalColor() {
-	FOREGROUND="\001\e[38;5;${1}m\002"
-	BACKGROUND="\001\e[48;5;${2}m\002"
+	FOREGROUND="\[\e[38;5;${1}m\]"
+	BACKGROUND="\[\e[48;5;${2}m\]"
 
 	if [[ -z "${1}" ]]; then
-		FOREGROUND="\001\e[38;5;15m\002"
+		FOREGROUND="\[\e[38;5;15m\]"
 	fi
 
 	if [[ -z "${2}" || "${2}" -eq "-1" ]]; then
