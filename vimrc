@@ -25,7 +25,6 @@ endif
 noremap <C-w>b :ls<CR>:buffer 
 noremap <C-w>t :tabnew 
 noremap <C-w>e :e 
-noremap <C-w>b :ls<CR>:b 
 noremap <C-w>x :%!xxd<CR>
 noremap <C-w>X :%!xxd -r<CR>
 noremap <C-w>m :!man ./%<CR>
