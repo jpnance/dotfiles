@@ -1,3 +1,5 @@
+set noswapfile
+
 set autochdir
 set cursorline
 
@@ -23,14 +25,18 @@ endif
 noremap <C-w>b :ls<CR>:buffer 
 noremap <C-w>t :tabnew 
 noremap <C-w>e :e 
+noremap <C-w>b :ls<CR>:b 
 noremap <C-w>x :%!xxd<CR>
 noremap <C-w>X :%!xxd -r<CR>
 noremap <C-w>m :!man ./%<CR>
 
-set tabstop=4
-set shiftwidth=4
+set expandtab
+set tabstop=2
+set shiftwidth=2
 set autoindent
 set smartindent
+
+set clipboard=unnamed
 
 if has('gui_running')
 	noremap <C-w>t :browse tabnew<CR>
