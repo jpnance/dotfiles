@@ -1,6 +1,6 @@
 #!/bin/bash
 
-dotfiles=(vimrc vim gitconfig tmux.conf)
+dotfiles=(bashrc vimrc vim gitconfig tmux.conf)
 
 for dotfile in ${dotfiles[*]}
 do
