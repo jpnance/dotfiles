@@ -22,7 +22,6 @@ else
 	colorscheme jellybeans
 endif
 
-noremap <C-w>b :ls<CR>:buffer 
 noremap <C-w>t :tabnew 
 noremap <C-w>e :e 
 noremap <C-w>x :%!xxd<CR>
@@ -54,3 +53,8 @@ set wildmode=list:longest,full
 set mouse=a
 
 set listchars=tab:>-,trail:-
+
+augroup filetypeVim
+	autocmd!
+	autocmd FileType vim :setlocal noexpandtab
+augroup END
