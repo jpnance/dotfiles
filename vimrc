@@ -1,5 +1,6 @@
 set autochdir
 set cursorline
+set noswapfile
 
 syntax on
 set number
