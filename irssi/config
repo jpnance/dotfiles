@@ -62,6 +62,22 @@ servers = (
     address = "irc.undernet.org";
     chatnet = "Undernet";
     port = "6667";
+  },
+  {
+    address = "localhost";
+    chatnet = "efnet-znc";
+    port = "3745";
+    password = "jpnance/efnet:B75sWnLcgupBdKrdHZN8";
+    use_tls = "yes";
+    tls_verify = "no";
+  },
+  {
+    address = "localhost";
+    chatnet = "oftc-znc";
+    port = "3745";
+    password = "jpnance/oftc:B75sWnLcgupBdKrdHZN8";
+    use_tls = "yes";
+    tls_verify = "no";
   }
 );
 
@@ -134,6 +150,8 @@ chatnets = {
     max_msgs = "1";
     max_whois = "1";
   };
+  "efnet-znc" = { type = "IRC"; };
+  "oftc-znc" = { type = "IRC"; };
 };
 
 channels = (
@@ -308,3 +326,4 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; indent = "18"; };
 };
+logs = { };
