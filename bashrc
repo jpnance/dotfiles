@@ -165,22 +165,40 @@ function printBar() {
 }
 
 function printPrompt() {
-	#COOL_CHARS=(▘ ▝ ▀ ▖ ▍ ▞ ▛ ▗ ▚ ▐ ▜ ▃ ▙ ▟ ▉)
-	SEPARATOR="◿◸"
-	PROMPT=""
-
-	PROMPT+="$(terminalColor 32)$BOLD$(workingDirectory)$RESET_COLORS"
+	SEPARATOR="⋰"
+	PREVIOUS_EXIT_CODE=$1
 
 	GIT=$(parse_git_branch)
+	HOST=$(hostname -s)
+
+	TEXT_COLOR_HOST=82
+	TEXT_COLOR_DIRECTORY=81
+	TEXT_COLOR_GIT=171
+	TEXT_COLOR_GOOD=255
+	TEXT_COLOR_SEPARATOR=250
+
+	PROMPT=""
+
+	if [[ -n "$SSH_CLIENT" ]]; then
+		PROMPT+="$(terminalColor $TEXT_COLOR_HOST)$BOLD$HOST"
+		PROMPT+="$(terminalColor $TEXT_COLOR_SEPARATOR) $SEPARATOR "
+	fi
+
+	PROMPT+="$(terminalColor $TEXT_COLOR_DIRECTORY)$BOLD$(workingDirectory)"
 
 	if [[ -n "$GIT" ]]; then
-		PROMPT+="$(terminalColor 245) $SEPARATOR $(terminalColor 40)${BOLD}$GIT$RESET_COLORS"
+		PROMPT+="$(terminalColor $TEXT_COLOR_SEPARATOR) $SEPARATOR "
+		PROMPT+="$(terminalColor $TEXT_COLOR_GIT)$GIT"
 	fi
+
+	PROMPT+="${RESET_COLORS}"
+	PROMPT+="$(terminalColor $TEXT_COLOR_GOOD)"
+	PROMPT+=" \\$"
 
 	#PROMPT+="$BOLD$(terminalColor 0 32) $(workingDirectory) $(terminalColor 32 40)▆$(terminalColor 40 32)▀$RESET_COLORS$(terminalColor 32 40)▂$(terminalColor 40 0)█$(terminalColor 0 40)master $RESET_COLORS"
 	#➔ ${BOLD}mas${NORMAL}ter"
 
-	echo -e "$PROMPT "
+	echo -e "$PROMPT"
 }
 
 function separator() {
@@ -254,10 +272,10 @@ function set_bash_prompt() {
 	#PS1="\w $(parse_git_branch)\\$ $(printTitlebar)"
 	#PS1="$(printTitlebar)$(parse_git_branch)\\$ "
 
-	PS1="$(printBar $?)$RESET_COLORS"
-	#PS1="$(printPrompt $?)$BOLD\$$RESET_COLORS "
+	#PS1="$(printBar $?)$RESET_COLORS"
+	PS1="$(printPrompt $?)$RESET_COLORS "
 
-	PS0="\n"
+	#PS0="\n"
 }
 
 PROMPT_COMMAND=set_bash_prompt
