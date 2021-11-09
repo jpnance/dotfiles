@@ -165,7 +165,7 @@ function printBar() {
 }
 
 function printPrompt() {
-	SEPARATOR="⋰"
+	SEPARATOR="∵"
 	PREVIOUS_EXIT_CODE=$1
 
 	GIT=$(parse_git_branch)
@@ -175,7 +175,7 @@ function printPrompt() {
 	TEXT_COLOR_DIRECTORY=81
 	TEXT_COLOR_GIT=171
 	TEXT_COLOR_GOOD=255
-	TEXT_COLOR_SEPARATOR=250
+	TEXT_COLOR_SEPARATOR=245
 
 	PROMPT=""
 
