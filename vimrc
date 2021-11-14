@@ -52,3 +52,8 @@ set wildmode=list:longest,full
 set mouse=a
 
 set listchars=tab:>-,trail:-
+
+augroup filetypeYaml
+	autocmd!
+	autocmd FileType yaml :setlocal expandtab
+augroup END
