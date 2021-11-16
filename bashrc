@@ -188,7 +188,7 @@ function printPrompt() {
 
 	if [[ -n "$GIT" ]]; then
 		PROMPT+="$(terminalColor $TEXT_COLOR_SEPARATOR) $SEPARATOR "
-		PROMPT+="$(terminalColor $TEXT_COLOR_GIT)$GIT"
+		PROMPT+="$(terminalColor $TEXT_COLOR_GIT)$BOLD$GIT"
 	fi
 
 	PROMPT+="${RESET_COLORS}"
