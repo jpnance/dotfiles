@@ -257,7 +257,7 @@ function workingDirectory() {
 					OUTPUT+="${HIERARCHY[$i]:0:1}"
 				fi
 			else
-				OUTPUT+="${HIERARCHY[$i]/!SPACE!/ }"
+				OUTPUT+="${HIERARCHY[$i]//!SPACE!/ }"
 			fi
 		done
 	else
