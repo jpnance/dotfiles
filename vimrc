@@ -57,3 +57,10 @@ augroup filetypeYaml
 	autocmd!
 	autocmd FileType yaml :setlocal expandtab
 augroup END
+
+augroup filetypePackageJson
+	autocmd!
+	autocmd FileType package.json :setlocal tabstop=2
+	autocmd FileType package.json :setlocal shiftwidth=2
+	autocmd FileType package.json :setlocal expandtab
+augroup END
