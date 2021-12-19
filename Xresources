@@ -1,13 +1,14 @@
 XTerm*renderFont: true
-XTerm*faceName: VeraMono
-XTerm*faceSize: 8
+XTerm*faceName: DejaVu Sans Mono:pixelsize=18:antialias=true:autohint=true:charwidth=10
 XTerm*background: black
 XTerm*foreground: white
 XTerm*metaSendsEscape: true
-XTerm*cursorBlink: true
+! XTerm*cursorBlink: true
+XTerm*internalBorder: 4
+XTerm*utf8: 1
 
 URxvt*scrollBar: false
-URxvt*font: xft:Bitstream Vera Sans Mono:pixelsize=12
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=18
 URxvt*background: black
 URxvt*foreground: white
 URxvt*cursorBlink: true
