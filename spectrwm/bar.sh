@@ -58,6 +58,11 @@ storeSportsNews() {
 	SPORT=$2
 	MAX_LINES=$3
 
+	if [[ -z "$NEWS" ]]
+	then
+		return 1
+	fi
+
 	grep -Fxq "$NEWS" /tmp/$SPORT.txt
 
 	if [ $? -eq 1 ]
