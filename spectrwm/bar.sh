@@ -5,14 +5,22 @@ initialize() {
 
 	SEPARATOR="  .:.  "
 	DELAY=$([ "$1" != "" ] && echo $1 || echo $DEFAULT_DELAY)
+
+	touch /tmp/mlb.txt
+	touch /tmp/nba.txt
+	touch /tmp/nfl.txt
 }
 
 baseballOutput() {
 	BASEBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
+
+	storeSportsNews "$BASEBALL_OUTPUT" mlb 5
 }
 
 basketballOutput() {
 	BASKETBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=11" | jq -r '.data[0].attributes.headline'`
+
+	storeSportsNews "$BASKETBALL_OUTPUT" nba 5
 }
 
 batteryOutput() {
@@ -31,6 +39,12 @@ batteryOutput() {
 	fi
 }
 
+footballOutput() {
+	FOOTBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
+
+	storeSportsNews "$FOOTBALL_OUTPUT" nfl 5
+}
+
 loadOutput() {
 	LOAD_ONE=`cat /proc/loadavg | cut -d" " -f 1`
 	LOAD_FIVE=`cat /proc/loadavg | cut -d" " -f 2`
@@ -39,8 +53,19 @@ loadOutput() {
 	LOAD_OUTPUT="$LOAD_ONE / $LOAD_FIVE / $LOAD_FIFTEEN"
 }
 
-footballOutput() {
-	FOOTBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
+storeSportsNews() {
+	NEWS=$1
+	SPORT=$2
+	MAX_LINES=$3
+
+	grep -Fxq "$NEWS" /tmp/$SPORT.txt
+
+	if [ $? -eq 1 ]
+	then
+		echo "$NEWS" >> /tmp/$SPORT.txt
+		tail -n$MAX_LINES /tmp/$SPORT.txt > /tmp/$SPORT.txt.tmp
+		mv /tmp/$SPORT.txt.tmp /tmp/$SPORT.txt
+	fi
 }
 
 timeOutput() {
