@@ -1,8 +1,6 @@
 XTerm*renderFont: true
 XTerm*faceName: DejaVu Sans Mono:style=Regular:antialias=true:autohint=true
 XTerm*faceSize: 10
-XTerm*background: black
-XTerm*foreground: white
 XTerm*metaSendsEscape: true
 ! XTerm*cursorBlink: true
 XTerm*internalBorder: 4
