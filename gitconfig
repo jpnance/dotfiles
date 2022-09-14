@@ -1,3 +1,5 @@
 [user]
 	email = jpnance@gmail.com
 	name = Patrick Nance
+[init]
+	defaultBranch = main
