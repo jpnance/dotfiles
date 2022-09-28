@@ -81,14 +81,7 @@ dateOutput() {
 	DATE_OUTPUT=`date +"%A, %B --"`
 	DATE=`date +%-d`
 
-	case $DATE in
-		1|21|31) SUFFIX="st"; ;;
-		2|22) SUFFIX="nd"; ;;
-		3|23) SUFFIX="rd"; ;;
-		*) SUFFIX="th"; ;;
-	esac
-
-	DATE_OUTPUT=`sed -e s/--/$DATE$SUFFIX/ <<< "$DATE_OUTPUT"`
+	DATE_OUTPUT=`sed -e s/--/$DATE/ <<< "$DATE_OUTPUT"`
 }
 
 while :; do
