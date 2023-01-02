@@ -3,7 +3,9 @@ set cursorline
 set noswapfile
 
 syntax on
-set number
+set relativenumber
+set splitbelow
+set splitright
 
 let g:jellybeans_overrides = {
 \	'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
