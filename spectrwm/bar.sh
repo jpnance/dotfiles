@@ -12,13 +12,13 @@ initialize() {
 }
 
 baseballOutput() {
-	BASEBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
+	BASEBALL_OUTPUT=`curl -m 10 --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
 
 	storeSportsNews "$BASEBALL_OUTPUT" mlb 5
 }
 
 basketballOutput() {
-	BASKETBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=11" | jq -r '.data[0].attributes.headline'`
+	BASKETBALL_OUTPUT=`curl -m 10 --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=11" | jq -r '.data[0].attributes.headline'`
 
 	storeSportsNews "$BASKETBALL_OUTPUT" nba 5
 }
@@ -40,7 +40,7 @@ batteryOutput() {
 }
 
 footballOutput() {
-	FOOTBALL_OUTPUT=`curl --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
+	FOOTBALL_OUTPUT=`curl -m 10 --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
 
 	storeSportsNews "$FOOTBALL_OUTPUT" nfl 5
 }
