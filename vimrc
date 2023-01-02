@@ -3,7 +3,7 @@ set cursorline
 set noswapfile
 
 syntax on
-set number
+set relativenumber
 set splitbelow
 set splitright
 
