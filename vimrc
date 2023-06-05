@@ -30,8 +30,9 @@ noremap <C-w>x :%!xxd<CR>
 noremap <C-w>X :%!xxd -r<CR>
 noremap <C-w>m :!man ./%<CR>
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
+set expandtab
 set autoindent
 set smartindent
 
@@ -73,12 +74,12 @@ inoremap <s-tab> <c-n>
 
 augroup filetypeYaml
 	autocmd!
+	autocmd FileType yaml :setlocal tabstop=4
+	autocmd FileType yaml :setlocal shiftwidth=4
 	autocmd FileType yaml :setlocal expandtab
 augroup END
 
-augroup filetypePackageJson
+augroup filetypeVue
 	autocmd!
-	autocmd FileType package.json :setlocal tabstop=2
-	autocmd FileType package.json :setlocal shiftwidth=2
-	autocmd FileType package.json :setlocal expandtab
+	autocmd FileType vue :setlocal suffixesadd=.vue,.ts,.d.ts,.tsx,.js,.jsx,.cjs,.mjs
 augroup END
