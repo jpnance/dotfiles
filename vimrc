@@ -1,4 +1,9 @@
-set autochdir
+filetype plugin on
+set path+=**
+set wildignore+=**/node_modules/**,**/dist/**
+set grepprg=git\ grep\ -n\ $*
+
+" set autochdir
 set cursorline
 set noswapfile
 
