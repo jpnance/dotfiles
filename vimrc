@@ -8,6 +8,7 @@ set cursorline
 set noswapfile
 
 syntax on
+set regexpengine=0
 set relativenumber
 set splitbelow
 set splitright
