@@ -283,3 +283,5 @@ PROMPT_COMMAND=set_bash_prompt
 export CLICOLOR=1
 export LSCOLORS=ExGxxxxxCxxxxxxxxxxxxx
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
