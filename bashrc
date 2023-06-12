@@ -279,3 +279,6 @@ function set_bash_prompt() {
 }
 
 PROMPT_COMMAND=set_bash_prompt
+
+export CLICOLOR=1
+export LSCOLORS=ExGxxxxxCxxxxxxxxxxxxx
