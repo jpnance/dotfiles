@@ -71,6 +71,12 @@ endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
+augroup cursorLineFocus
+  autocmd!
+  autocmd WinEnter * :set cursorline
+  autocmd WinLeave * :set nocursorline
+augroup END
+
 augroup filetypeYaml
 	autocmd!
 	autocmd FileType yaml :setlocal expandtab
