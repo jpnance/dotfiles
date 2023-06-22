@@ -78,6 +78,11 @@ endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
 
+augroup autoResizer
+  autocmd!
+  autocmd VimResized * exe "normal \<c-w>="
+augroup END
+
 augroup cursorLineFocus
   autocmd!
   autocmd WinEnter * :set cursorline
