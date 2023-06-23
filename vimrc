@@ -1,3 +1,5 @@
+set nocompatible
+
 filetype plugin on
 set path+=**
 set wildignore+=**/node_modules/**,**/dist/**
