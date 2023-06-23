@@ -285,3 +285,9 @@ export LSCOLORS=ExGxxxxxCxxxxxxxxxxxxx
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
+
+alias chess="cd ~/Workspace/chess"
+alias tests="cd ~/Workspace/chess/client/tests/cypress/e2e"
+alias compile="~/Workspace/chess/client/build/bin/build compile"
+alias serve="~/Workspace/chess/client/build/bin/build serve"
+alias type-check="~/Workspace/chess/client/build/bin/build run type-check"
