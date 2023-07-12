@@ -5,22 +5,6 @@ initialize() {
 
 	SEPARATOR="  .:.  "
 	DELAY=$([ "$1" != "" ] && echo $1 || echo $DEFAULT_DELAY)
-
-	touch /tmp/mlb.txt
-	touch /tmp/nba.txt
-	touch /tmp/nfl.txt
-}
-
-baseballOutput() {
-	BASEBALL_OUTPUT=`curl -m 10 --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=1" | jq -r '.data[0].attributes.headline'`
-
-	storeSportsNews "$BASEBALL_OUTPUT" mlb 5
-}
-
-basketballOutput() {
-	BASKETBALL_OUTPUT=`curl -m 10 --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=11" | jq -r '.data[0].attributes.headline'`
-
-	storeSportsNews "$BASKETBALL_OUTPUT" nba 5
 }
 
 batteryOutput() {
@@ -37,12 +21,6 @@ batteryOutput() {
 			BATTERY_OUTPUT="$BATTERY_CAPACITY%"
 		fi
 	fi
-}
-
-footballOutput() {
-	FOOTBALL_OUTPUT=`curl -m 10 --silent "https://www.nbcsportsedge.com/api/player_news?sort=-created&page%5Blimit%5D=1&page%5Boffset%5D=0&filter%5Bleague.meta.drupal_internal__id%5D=21" | jq -r '.data[0].attributes.headline'`
-
-	storeSportsNews "$FOOTBALL_OUTPUT" nfl 5
 }
 
 loadOutput() {
@@ -87,31 +65,10 @@ dateOutput() {
 while :; do
 	initialize $@
 
-	baseballOutput
-	basketballOutput
 	batteryOutput
 	dateOutput
-	footballOutput
 	loadOutput
 	timeOutput
-
-	if [ "$BASEBALL_OUTPUT" != "" ]
-	then
-		echo -n $BASEBALL_OUTPUT
-		echo -n "$SEPARATOR"
-	fi
-
-	if [ "$BASKETBALL_OUTPUT" != "" ]
-	then
-		echo -n $BASKETBALL_OUTPUT
-		echo -n "$SEPARATOR"
-	fi
-
-	if [ "$FOOTBALL_OUTPUT" != "" ]
-	then
-		echo -n $FOOTBALL_OUTPUT
-		echo -n "$SEPARATOR"
-	fi
 
 	echo -n $LOAD_OUTPUT
 	echo -n "$SEPARATOR"
