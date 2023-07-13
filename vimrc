@@ -15,6 +15,9 @@ set relativenumber
 set splitbelow
 set splitright
 
+set autoread
+set updatetime=1000
+
 let g:jellybeans_overrides = {
 \	'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \}
@@ -79,6 +82,12 @@ endfunction
 
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-n>
+
+augroup autoReader
+  " If you don't end up liking this, you might want to get rid of the "set autoread" line up top as well.
+  autocmd!
+  autocmd CursorHold,InsertEnter *.vue,*.ts,*.js :checktime
+augroup END
 
 augroup autoResizer
   autocmd!
