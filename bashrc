@@ -289,5 +289,6 @@ source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bas
 alias chess="cd ~/Workspace/chess"
 alias tests="cd ~/Workspace/chess/client/tests/cypress/e2e"
 alias compile="~/Workspace/chess/client/build/bin/build compile"
-alias serve="~/Workspace/chess/client/build/bin/build serve"
+alias serve-cypress="~/Workspace/chess/client/build/bin/build serve --cypress -u"
+alias serve-docker="~/Workspace/chess/client/build/bin/build serve --docker -u"
 alias type-check="~/Workspace/chess/client/build/bin/build run type-check"
