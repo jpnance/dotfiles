@@ -37,6 +37,17 @@ endif
 noremap <C-w>x :%!xxd<CR>
 noremap <C-w>X :%!xxd -r<CR>
 noremap <C-w>m :!man ./%<CR>
+noremap <C-w>z :tabnew %<CR>
+
+let mapleader="\<Space>"
+
+nnoremap <Leader>lo :lopen<CR>
+nnoremap <Leader>lc :lclose<CR>
+nnoremap <Leader>lgr :lgrep! 
+nnoremap <Leader>lgcw :lgrep! <cword><CR>
+
+nnoremap <Leader>gf :e client/<cfile>
+nnoremap <Leader>y "*y
 
 set tabstop=2
 set shiftwidth=2
