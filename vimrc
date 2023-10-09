@@ -33,6 +33,19 @@ noremap <C-w>x :%!xxd<CR>
 noremap <C-w>X :%!xxd -r<CR>
 noremap <C-w>m :!man ./%<CR>
 
+let mapleader="\<Space>"
+
+nnoremap <Leader>co :copen<CR>
+nnoremap <Leader>cc :cclose<CR>
+nnoremap <Leader>/ :grep! 
+nnoremap <Leader>* :grep! <cword><CR>
+
+nnoremap <Leader>gf :e <cfile>
+nnoremap <Leader>y "*y
+nnoremap <Leader>y% :let @*=expand('%')<CR>
+
+vnoremap <Leader>y "*y
+
 set tabstop=4
 set shiftwidth=4
 set autoindent
