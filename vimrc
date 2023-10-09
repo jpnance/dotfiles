@@ -49,6 +49,9 @@ nnoremap <Leader>lgcw :lgrep! <cword><CR>
 
 nnoremap <Leader>gf :e client/<cfile>
 nnoremap <Leader>y "*y
+nnoremap <Leader>y% :let @*=expand('%')<CR>
+
+vnoremap <Leader>y "*y
 
 set tabstop=2
 set shiftwidth=2
