@@ -45,7 +45,7 @@ let mapleader="\<Space>"
 nnoremap <Leader>lo :lopen<CR>
 nnoremap <Leader>lc :lclose<CR>
 nnoremap <Leader>lgr :lgrep! 
-nnoremap <Leader>lgcw :lgrep! <cword><CR>
+nnoremap <Leader>* :lgrep! <cword><CR><CR>:lopen<CR>
 
 nnoremap <Leader>gf :e client/<cfile>
 nnoremap <Leader>y "*y
