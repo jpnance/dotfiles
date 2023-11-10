@@ -75,7 +75,8 @@ set wildmenu
 set wildmode=list:longest,full
 set mouse=a
 
-set listchars=tab:>-,trail:-
+set list
+set listchars=leadmultispace:\ ┊,tab:▸\ 
 
 function! InsertTabWrapper()
     let col = col('.') - 1
