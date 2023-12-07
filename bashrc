@@ -288,6 +288,10 @@ export TERM=xterm
 source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 
 alias chess="cd ~/Workspace/chess"
+alias legacy="cd ~/Workspace/chess/client/web/puzzles-legacy"
+alias battle="cd ~/Workspace/chess/client/web/puzzles/modules/puzzle-battle"
+alias core="cd ~/Workspace/chess/client/web/puzzles/modules/puzzle-core"
+alias rush="cd ~/Workspace/chess/client/web/puzzles/modules/puzzle-rush"
 alias tests="cd ~/Workspace/chess/client/tests/cypress/e2e"
 alias fixtures="cd ~/Workspace/chess/client/tests/cypress/fixtures"
 alias compile="~/Workspace/chess/client/build/bin/build compile"
