@@ -1,8 +1,3 @@
-augroup filetypeVue
-  autocmd!
-  autocmd FileType vue :setlocal suffixesadd=.vue,.ts,.d.ts,.tsx,.js,.jsx,.cjs,.mjs
-augroup END
-
 augroup filetypePhp
   autocmd!
   autocmd FileType php :setlocal suffixesadd=.php
