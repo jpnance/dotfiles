@@ -1,10 +1,3 @@
-augroup filetypeYaml
-  autocmd!
-  autocmd FileType yaml :setlocal tabstop=4
-  autocmd FileType yaml :setlocal shiftwidth=4
-  autocmd FileType yaml :setlocal expandtab
-augroup END
-
 augroup filetypeVue
   autocmd!
   autocmd FileType vue :setlocal suffixesadd=.vue,.ts,.d.ts,.tsx,.js,.jsx,.cjs,.mjs
