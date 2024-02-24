@@ -9,20 +9,9 @@ function! AutoReader()
 endfunction
 
 function! ColorScheme()
-  let g:jellybeans_overrides = {
-  \	'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-  \ 'VertSplit': { 'guifg': '333333' },
-  \ 'StatusLineNC': { 'guibg': '333333', 'guifg': '999999' },
-  \ 'StatusLine': { 'guibg': '555555', 'guifg': 'ffffff' },
-  \}
-
-  if has('termguicolors') && &termguicolors
-    let g:jellybeans_overrides['background']['guibg'] = 'none'
-  endif
-
   set t_Co=256
 
-  colorscheme jellybeans
+  colorscheme blade_runner
 endfunction
 
 function! Defaults()
@@ -89,12 +78,6 @@ function! Path()
 endfunction
 
 function! StatusLine()
-  augroup statusLine
-    autocmd!
-    autocmd InsertEnter * :highlight StatusLine ctermfg=16 ctermbg=251 guibg=#ffffff guifg=#333333
-    autocmd InsertLeave * :highlight StatusLine ctermfg=231 ctermbg=239 guibg=#555555 guifg=#ffffff
-  augroup END
-
   function! IsCurrentBufferModified()
     let currentBufferInfo = getbufinfo(bufname())
 
