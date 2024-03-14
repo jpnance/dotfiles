@@ -286,6 +286,52 @@ function route() {
   grep -Rn $* ~/Workspace/chess/src/Chess/WebBundle/Resources/config/routing/*
 }
 
+function commit() {
+  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+
+  if [ "${TICKET}" == "" ]; then
+    read -p "\$TICKET is blank. Commit anyway? [y/N]" -n 1 -r -s CHOICE
+    echo
+    echo
+
+    case "${CHOICE}" in
+      y|Y)
+        formatted_ticket=""
+        ;;
+
+      n|N|*)
+        return
+        ;;
+    esac
+  elif [[ ! "${BRANCH}" =~ "${TICKET}" ]]; then
+    read -p "\$TICKET (${TICKET}) doesn't match the branch (${BRANCH}). Commit anyway? [y/N]" -n 1 -r -s CHOICE
+    echo
+    echo
+
+    case "${CHOICE}" in
+      y|Y)
+        formatted_ticket="${TICKET} - "
+        ;;
+
+      n|N|*)
+        return
+        ;;
+    esac
+  else
+    formatted_ticket="${TICKET} - "
+  fi
+
+  git commit -m "${formatted_ticket}$*"
+}
+
+function ticket() {
+  if [ "$1" == "" ]; then
+    echo $TICKET
+  else
+    export TICKET=$1
+  fi
+}
+
 PROMPT_COMMAND=set_bash_prompt
 
 export CLICOLOR=1
