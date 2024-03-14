@@ -332,6 +332,10 @@ function ticket() {
   fi
 }
 
+function chess() {
+  cd ${CHESS}
+}
+
 PROMPT_COMMAND=set_bash_prompt
 
 export CLICOLOR=1
@@ -341,13 +345,14 @@ export TERM=xterm
 
 source /Library/Developer/CommandLineTools/usr/share/git-core/git-completion.bash
 
-alias chess="cd ~/Workspace/chess"
-alias legacy="cd ~/Workspace/chess/client/web/puzzles-legacy"
-alias battle="cd ~/Workspace/chess/client/web/puzzles/modules/puzzle-battle"
-alias core="cd ~/Workspace/chess/client/web/puzzles/modules/puzzle-core"
-alias rush="cd ~/Workspace/chess/client/web/puzzles/modules/puzzle-rush"
-alias tests="cd ~/Workspace/chess/client/tests/cypress/e2e"
-alias fixtures="cd ~/Workspace/chess/client/tests/cypress/fixtures"
+export CHESS=~/Workspace/chess
+export BATTLE=~/Workspace/chess/client/web/puzzles/modules/puzzle-battle
+export LEGACY=~/Workspace/chess/client/web/puzzles-legacy
+export CORE=~/Workspace/chess/client/web/puzzles/modules/puzzle-core
+export RUSH=~/Workspace/chess/client/web/puzzles/modules/puzzle-rush
+export TESTS=~/Workspace/chess/client/tests/cypress/e2e
+export FIXTURES=~/Workspace/chess/client/tests/cypress/fixtures
+
 alias compile="~/Workspace/chess/client/build/bin/build compile"
 alias serve-cypress="~/Workspace/chess/client/build/bin/build serve --cypress -u"
 alias serve-docker="~/Workspace/chess/client/build/bin/build serve --docker -u"
