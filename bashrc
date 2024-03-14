@@ -278,6 +278,14 @@ function set_bash_prompt() {
 	#PS0="\n"
 }
 
+function trans() {
+  grep $* ~/Workspace/chess/app/Resources/assets/js/translations/messages.en_US.json
+}
+
+function route() {
+  grep -Rn $* ~/Workspace/chess/src/Chess/WebBundle/Resources/config/routing/*
+}
+
 PROMPT_COMMAND=set_bash_prompt
 
 export CLICOLOR=1
