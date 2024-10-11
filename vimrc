@@ -179,6 +179,8 @@ function! UsefulMappings()
   inoremap <C-C> <Esc>
 
   nnoremap <Leader>v :source ~/.vimrc<CR>
+
+  nnoremap <Leader>: :%s/<C-R><C-W>//g<Left><Left>
 endfunction
 
 call AutoReader()
