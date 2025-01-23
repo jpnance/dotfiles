@@ -47,7 +47,7 @@ function! Defaults()
 
   set path+=**
 
-  set grepprg=git\ grep\ -n\ $*
+  set grepprg=git\ grep\ -n\ $*\ --\ ':!*translations*'
 
   syntax on
   set regexpengine=0
