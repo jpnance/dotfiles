@@ -286,6 +286,31 @@ function route() {
   grep -Rn $* ~/Workspace/chess/src/Chess/WebBundle/Resources/config/routing/*
 }
 
+function branch() {
+  BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+
+  new_branch_name=$(echo $* | sed -e "s/ /-/g")
+
+  if [ "${TICKET}" == "" ]; then
+    read -p "\$TICKET is blank. Create new branch anyway? [y/N]" -n 1 -r -s CHOICE
+    echo
+    echo
+
+    case "${CHOICE}" in
+      y|Y)
+        ;;
+
+      n|N|*)
+        return
+        ;;
+    esac
+  else
+    new_branch_name="${TICKET}-${new_branch_name}"
+  fi
+
+  git checkout -b PN/${new_branch_name}
+}
+
 function commit() {
   BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 
