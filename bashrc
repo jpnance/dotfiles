@@ -361,6 +361,20 @@ function chess() {
   cd ${CHESS}
 }
 
+function watcher() {
+  command=""
+
+  if [ "$1" == "type-check" ]; then
+    command="./client/build/bin/build run type-check"
+  elif [ "$1" == "playwright" ]; then
+    command="cd ~/Workspace/chess/client/tests && npx playwright test --project chromium --reporter dot --retries 2 $2"
+  elif [ "$1" == "linter" ]; then
+    command="cd client; npm run biome -- --write"
+  fi
+
+  chess && npx nodemon -d 1 -w ./client -e js,ts,vue --exec "reset && ${command}"
+}
+
 PROMPT_COMMAND=set_bash_prompt
 
 export CLICOLOR=1
