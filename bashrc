@@ -349,13 +349,15 @@ export CHESS=~/Workspace/chess
 export BATTLE=~/Workspace/chess/client/web/puzzles/modules/puzzle-battle
 export LEGACY=~/Workspace/chess/client/web/puzzles-legacy
 export CORE=~/Workspace/chess/client/web/puzzles/modules/puzzle-core
+export RATED=~/Workspace/chess/client/web/puzzles/modules/puzzle-rated
+export LEARNING=~/Workspace/chess/client/web/puzzles/modules/puzzle-learning
 export RUSH=~/Workspace/chess/client/web/puzzles/modules/puzzle-rush
-export TESTS=~/Workspace/chess/client/tests/cypress/e2e
+export TESTS=~/Workspace/chess/client/tests
 export FIXTURES=~/Workspace/chess/client/tests/cypress/fixtures
 
 alias compile="~/Workspace/chess/client/build/bin/build compile"
 alias serve-cypress="~/Workspace/chess/client/build/bin/build serve --cypress -u"
-alias serve-docker="~/Workspace/chess/client/build/bin/build serve --docker -u"
+alias serve-docker="~/Workspace/chess/client/build/bin/build serve -u"
 alias type-check="~/Workspace/chess/client/build/bin/build run type-check"
 alias lint-scripts="~/Workspace/chess/client/build/bin/build run ci:lint-scripts"
 alias lint-styles="~/Workspace/chess/client/build/bin/build run ci:lint-styles"
