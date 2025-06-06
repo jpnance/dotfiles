@@ -1,3 +1,5 @@
+HISTCONTROL=ignoredups
+
 SAVE_CURSOR="\[\e[s\]"
 CURSOR_TO_TOP="\[\e[H\]"
 CURSOR_UP_DOWN="\[\e[1A\e[1B\]"
