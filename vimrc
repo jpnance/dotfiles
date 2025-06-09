@@ -53,6 +53,10 @@ function! Defaults()
   set regexpengine=0
 endfunction
 
+function! Git()
+  command! GitDiffDevelopArgs execute 'args ' . join(filter(split(system('git diff --name-only develop...'), "\n"), 'filereadable(v:val)'), " ") | ls
+endfunction
+
 function! Gui()
   augroup cursorLineFocus
     autocmd!
@@ -181,11 +185,14 @@ function! UsefulMappings()
   nnoremap <Leader>v :source ~/.vimrc<CR>
 
   nnoremap <Leader>: :%s/<C-R><C-W>//g<Left><Left>
+
+  nnoremap <Leader>gd :GitDiffDevelopArgs<CR>
 endfunction
 
 call AutoReader()
 call ColorScheme()
 call Defaults()
+call Git()
 call Gui()
 call Indentation()
 call Path()
