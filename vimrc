@@ -173,6 +173,8 @@ function! UsefulMappings()
   nnoremap <Leader>lc :lclose<CR>
   nnoremap <Leader>lgr :lgrep! 
   nnoremap <Leader>* :lgrep! <cword><CR><CR>:lopen<CR>
+  nnoremap <Leader>b :b 
+  nnoremap <Leader>f :find 
 
   nnoremap <Leader>gf :e client/<cfile>
 
@@ -185,11 +187,14 @@ function! UsefulMappings()
 
   inoremap <C-C> <Esc>
 
+  nnoremap <Leader>e :e ~/.vimrc<CR>
   nnoremap <Leader>v :source ~/.vimrc<CR>
 
   nnoremap <Leader>: :%s/<C-R><C-W>//g<Left><Left>
 
   nnoremap <Leader>gd :GitDiffDevelopArgs<CR>
+
+  nnoremap <Leader><Esc> :nohlsearch<CR>
 endfunction
 
 call AutoReader()
