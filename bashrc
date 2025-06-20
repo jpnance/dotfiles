@@ -280,6 +280,10 @@ function set_bash_prompt() {
 	#PS0="\n"
 }
 
+function um() {
+  cat ~/um/*$1*
+}
+
 function trans() {
   grep $* ~/Workspace/chess/app/Resources/assets/js/translations/messages.en_US.json
 }
