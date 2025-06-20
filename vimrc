@@ -162,6 +162,52 @@ function! TabCompletion()
 endfunction
 
 function! UsefulMappings()
+  function! QuickfixFilterInteractive()
+    let l:pattern = input('Filter quickfix entries (prefix ! to remove matches): ')
+    if empty(l:pattern)
+      echo "No pattern entered. Aborting."
+      return
+    endif
+
+    " If pattern starts with !, invert the match and remove the !
+    let l:keep_matches = 1
+    if l:pattern[0] ==# '!'
+      let l:keep_matches = 0
+      let l:pattern = l:pattern[1:]
+    endif
+
+    let Matcher = {v ->
+          \ (has_key(v, 'filename') && v.filename =~ l:pattern)
+          \ || (has_key(v, 'bufnr') && bufname(v.bufnr) =~ l:pattern)
+          \ || (has_key(v, 'text') && v.text =~ l:pattern)
+          \ }
+
+    let l:filtered = l:keep_matches
+          \ ? filter(getqflist(), {_, v -> Matcher(v)})
+          \ : filter(getqflist(), {_, v -> !Matcher(v)})
+
+    call setqflist(l:filtered)
+    redraw
+    echo len(l:filtered) . " quickfix entries kept."
+  endfunction
+
+  function! GrepAndOpenQF()
+    let l:query = input('Grep for: ')
+
+    if empty(l:query)
+      return
+    endif
+
+    execute 'silent! grep! ' . shellescape(l:query)
+    redraw!
+
+    if len(getqflist()) > 0
+      copen
+    else
+      echo "No results found."
+    endif
+  endfunction
+
   let g:mapleader="\<Space>"
 
   noremap <C-w>x :%!xxd<CR>
@@ -169,12 +215,27 @@ function! UsefulMappings()
   noremap <C-w>m :!man ./%<CR>
   noremap <C-w>z :tabnew %<CR>
 
-  nnoremap <Leader>lo :lopen<CR>
-  nnoremap <Leader>lc :lclose<CR>
-  nnoremap <Leader>lgr :lgrep! 
-  nnoremap <Leader>* :lgrep! <cword><CR><CR>:lopen<CR>
   nnoremap <Leader>b :b 
   nnoremap <Leader>f :find 
+
+  nnoremap <Leader>/ :call GrepAndOpenQF()<CR>
+  nnoremap <Leader>* :grep! <cword><CR><CR>:copen<CR>
+  nnoremap <Leader>cf :call QuickfixFilterInteractive()<CR>
+  nnoremap <Leader>c1 :cfirst<CR>
+  nnoremap <Leader>co :copen<CR>
+  nnoremap <Leader>cc :cclose<CR>
+  nnoremap <Leader>[ :cprevious<CR>
+  nnoremap <Leader>] :cnext<CR>
+  nnoremap <Leader>{ :colder<CR>
+  nnoremap <Leader>} :cnewer<CR>
+
+  nnoremap <Leader>lo <Nop>
+  nnoremap <Leader>lc <Nop>
+  nnoremap <Leader>lgr <Nop>
+  " nnoremap <Leader>lo :lopen<CR>
+  " nnoremap <Leader>lc :lclose<CR>
+  " nnoremap <Leader>lgr :lgrep! 
+  " nnoremap <Leader>* :lgrep! <cword><CR><CR>:lopen<CR>
 
   nnoremap <Leader>gf :e client/<cfile>
 
