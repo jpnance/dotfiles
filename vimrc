@@ -57,7 +57,7 @@ function! Defaults()
 endfunction
 
 function! Git()
-  command! GitDiffDevelopArgs execute 'args ' . join(filter(split(system('git diff --name-only develop...'), "\n"), 'filereadable(v:val)'), " ") | ls
+  command! GitDiffDevelopArgs execute 'args ' . join(filter(split(system('git diff --name-only origin/develop...'), "\n"), 'filereadable(v:val)'), " ") | ls
 endfunction
 
 function! Gui()
