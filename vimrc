@@ -51,6 +51,9 @@ function! Defaults()
 
   syntax on
   set regexpengine=0
+
+  set hlsearch
+  set incsearch
 endfunction
 
 function! Git()
