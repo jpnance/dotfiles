@@ -224,10 +224,10 @@ function! UsefulMappings()
   nnoremap <Leader>c1 :cfirst<CR>
   nnoremap <Leader>co :copen<CR>
   nnoremap <Leader>cc :cclose<CR>
-  nnoremap <Leader>[ :cprevious<CR>
-  nnoremap <Leader>] :cnext<CR>
-  nnoremap <Leader>{ :colder<CR>
-  nnoremap <Leader>} :cnewer<CR>
+  nnoremap <Up> :cprevious<CR>
+  nnoremap <Down> :cnext<CR>
+  nnoremap <Left> :colder<CR>
+  nnoremap <Right> :cnewer<CR>
 
   nnoremap <Leader>lo <Nop>
   nnoremap <Leader>lc <Nop>
