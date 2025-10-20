@@ -242,7 +242,7 @@ function! UsefulMappings()
   nnoremap <Leader>y "*y
   vnoremap <Leader>y "*y
 
-  nnoremap <Leader>y% :let @*=expand('%')<CR>
+  nnoremap <Leader>y% :let @*="https://github.com/ChessCom/chess/tree/develop/" . expand('%') . "#L" . line(".")<CR>
 
   nnoremap <Leader>dd 0D
 
