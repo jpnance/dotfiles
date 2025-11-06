@@ -32,7 +32,8 @@ function! ColorScheme()
 
   set t_Co=256
 
-  colorscheme jellybeans
+  set background=dark
+  colorscheme quiet
 endfunction
 
 function! Defaults()
@@ -117,8 +118,13 @@ endfunction
 function! StatusLine()
   augroup statusLine
     autocmd!
-    autocmd InsertEnter * :highlight StatusLine ctermfg=16 ctermbg=251 guibg=#ffffff guifg=#333333
-    autocmd InsertLeave * :highlight StatusLine ctermfg=231 ctermbg=239 guibg=#555555 guifg=#ffffff
+    " use when using jellybeans color scheme
+    "autocmd InsertEnter * :highlight StatusLine ctermfg=16 ctermbg=251 guibg=#ffffff guifg=#333333
+    "autocmd InsertLeave * :highlight StatusLine ctermfg=231 ctermbg=239 guibg=#555555 guifg=#ffffff
+
+    " use when using quiet color scheme
+    "autocmd InsertEnter * :highlight StatusLine cterm=reverse
+    "autocmd InsertLeave * :highlight StatusLine cterm=bold
   augroup END
 
   function! IsCurrentBufferModified()
