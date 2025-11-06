@@ -58,7 +58,80 @@ function! Defaults()
 endfunction
 
 function! Git()
-  command! GitDiffDevelopArgs execute 'args ' . join(filter(split(system('git diff --name-only origin/develop...'), "\n"), 'filereadable(v:val)'), " ") | ls
+  " I might not need this on non-work machines
+  " command! GitDiffDevelopArgs execute 'args ' . join(filter(split(system('git diff --name-only origin/develop...'), "\n"), 'filereadable(v:val)'), " ") | ls
+  command! GitDiffDevelopArgs call setqflist(map(systemlist('git diff --name-only origin/develop...'), '{ "filename": v:val, "lnum": 1, "col": 1, "text": "" }')) | copen
+
+  " DiffHere: left = <base_ref> blob (scratch), right = local file (focused).
+  function! DiffHere(...) abort
+    " safe optional arg: first arg or default
+    let l:base_ref = get(a:000, 0, 'origin/develop')
+
+    " 1) Current buffer path
+    let l:cur = expand('%:p')
+    if empty(l:cur)
+      echoerr "DiffHere: current buffer has no filename"
+      return
+    endif
+
+    " 2) Directory to run git in (use file dir or cwd)
+    let l:dir = fnamemodify(l:cur, ':h')
+    if l:dir ==# '' | let l:dir = getcwd() | endif
+
+    " 3) Get repo root (capture stderr)
+    let l:cmd = 'git -C ' . fnameescape(l:dir) . ' rev-parse --show-toplevel 2>&1'
+    let l:root_out = systemlist(l:cmd)
+    if v:shell_error || empty(l:root_out)
+      let l:msg = empty(l:root_out) ? 'git failed with no output' : join(l:root_out, "\n")
+      echohl ErrorMsg
+      echom 'DiffHere: unable to determine git repo root for ' . l:dir . ' -- ' . l:msg
+      echohl None
+      return
+    endif
+    let l:root = fnamemodify(l:root_out[0], ':p')
+
+    " 4) Repo-relative path for git show
+    let l:rel = substitute(l:cur, '^' . escape(l:root, '\') , '', '')
+
+    " 5) Fetch blob from base_ref (capture stderr)
+    let l:showcmd = 'git --no-pager -C ' . fnameescape(l:root) . ' show ' . shellescape(l:base_ref . ':' . l:rel) . ' 2>&1'
+    let l:blob = systemlist(l:showcmd)
+    if v:shell_error
+      let l:errtext = join(l:blob, "\n")
+      echohl WarningMsg
+      echom 'DiffHere: git show failed: ' . l:errtext
+      echohl None
+      let l:blob = [''] " ensure we still create an empty buffer for diff
+    endif
+
+    execute 'tabnew'
+
+    " 6) Ensure we start by populating the left window with the base blob.
+    " Use enew to get a fresh buffer then set it to be scratch and populate it.
+    " (We avoid using vsplit first to keep deterministic left/right.)
+    execute 'enew'
+    setlocal buftype=nowrite bufhidden=wipe noswapfile nobuflisted
+    call setline(1, l:blob)
+    execute 'file ' . fnameescape('[' . l:base_ref . '] ' . l:rel)
+
+    " 7) Open the local file to the right explicitly (regardless of 'splitright')
+    " 'rightbelow vsplit' ensures the new window appears to the right of the current window.
+    execute 'rightbelow vsplit'
+    execute 'edit ' . fnameescape(l:cur)
+
+    " 8) Move focus to the right window (local file)
+    wincmd l
+
+    " 9) Enable diff mode if not already on
+    if &diff == 0
+      windo diffthis
+    endif
+
+    " 10) Jump to first diff hunk (in the right window)
+    silent! normal! ]c
+  endfunction
+
+  command! -nargs=? DiffHere call DiffHere(<f-args>)
 endfunction
 
 function! Gui()
@@ -260,6 +333,7 @@ function! UsefulMappings()
   nnoremap <Leader>: :%s/<C-R><C-W>//g<Left><Left>
 
   nnoremap <Leader>gd :GitDiffDevelopArgs<CR>
+  nnoremap <Leader>vd :DiffHere<CR>
 
   nnoremap <Leader><Esc> :nohlsearch<CR>
 endfunction
