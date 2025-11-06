@@ -6,6 +6,7 @@ augroup END
 augroup filetypeTypescript
   autocmd!
   autocmd FileType typescript :setlocal suffixesadd=.ts,.d.ts,.tsx,.js,.jsx,.cjs,.mjs,.json
+  autocmd FileType typescript :setlocal formatoptions-=ro
 augroup END
 
 function! AutoReader()
