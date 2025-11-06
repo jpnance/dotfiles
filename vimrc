@@ -159,7 +159,7 @@ function! Gui()
   set mouse=a
 
   set list
-  set listchars=leadmultispace:\ ┊,tab:▸\ 
+  set listchars=leadmultispace:┊\ ,tab:▸\ 
 
   set fillchars=vert:│,fold:-,eob:~,lastline:@
 
@@ -336,6 +336,8 @@ function! UsefulMappings()
   nnoremap <Leader>vd :DiffHere<CR>
 
   nnoremap <Leader><Esc> :nohlsearch<CR>
+
+  nnoremap <Leader>b/ ?function<CR>V/{<CR>%<ESC>/\%V
 endfunction
 
 call AutoReader()
