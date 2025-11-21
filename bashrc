@@ -381,6 +381,19 @@ function watcher() {
   chess && npx nodemon -d 1 -w ./client -e js,ts,vue --exec "reset && ${command}"
 }
 
+function note() {
+  daystamp=$(date +%m%d)
+  directory=~/notes/${daystamp}
+
+  mkdir -p ${directory}
+
+  cd ${directory}
+
+  vi $1
+
+  cd -
+}
+
 PROMPT_COMMAND=set_bash_prompt
 
 export CLICOLOR=1
